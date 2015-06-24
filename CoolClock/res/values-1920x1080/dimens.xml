@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="guillotine_actionbar_background_view_height">55dp</dimen>  
+
+</resources>

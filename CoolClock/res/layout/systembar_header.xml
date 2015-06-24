@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_relativelayout_header"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/guillotine_actionbar_background_view_height"
+    android:background="#7ecec9" >
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:contentDescription="@null"
+        android:src="@drawable/back" />
+
+    <TextView
+        android:id="@+id/text_module"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/set_clock"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+</RelativeLayout>
