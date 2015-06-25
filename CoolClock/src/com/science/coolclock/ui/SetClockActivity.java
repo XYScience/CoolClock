@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.science.coolclock.R;
 import com.science.coolclock.widget.RevealLayout;
+import com.skyfishjy.library.RippleBackground;
 
 /**
  * @description 闹钟详情设置界面
@@ -33,6 +34,8 @@ public class SetClockActivity extends Activity {
 	private RevealLayout mRevealLayout;
 	private RelativeLayout mSetClockLayout;
 	private ImageView mBackImage;
+	private RippleBackground mRippleBackground;
+	private ImageView mVoiceRecordImg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class SetClockActivity extends Activity {
 		mSetClockLayout.setBackgroundColor(0xffffffff);
 		mRevealLayout = (RevealLayout) findViewById(R.id.reveal_layout);
 		mBackImage = (ImageView) findViewById(R.id.back);
+		mRippleBackground = (RippleBackground) findViewById(R.id.voice_record_ripple);
+		mVoiceRecordImg = (ImageView) findViewById(R.id.voice_record);
 	}
 
 	private void initListener() {
@@ -103,6 +108,14 @@ public class SetClockActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				finish();
+			}
+		});
+
+		mVoiceRecordImg.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mRippleBackground.startRippleAnimation();
 			}
 		});
 	}

@@ -20,13 +20,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/alarm_a"
+            android:layout_toRightOf="@+id/alarm"
             android:text="我要早起！！"
             android:textColor="#000"
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/alarm_a"
+            android:id="@+id/alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -40,7 +40,7 @@
             android:layout_below="@id/clock_intro_name"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/alarm_a"
+            android:layout_toRightOf="@+id/alarm"
             android:text="07:00"
             android:textColor="#000"
             android:textSize="44sp" />
@@ -52,69 +52,12 @@
             android:layout_below="@id/clock_intro_time"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/alarm_a"
+            android:layout_toRightOf="@+id/alarm"
             android:text="未开启"
             android:textColor="#898989" />
 
         <com.zcw.togglebutton.ToggleButton
-            android:id="@+id/toggle_button1"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/clock_intro2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#86dad7"
-        android:padding="14dp" >
-
-        <TextView
-            android:id="@+id/clock_intro_name2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/alarm_b"
-            android:text="我要早起！！"
-            android:textColor="#fff"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/alarm_b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/alarm_b" />
-
-        <TextView
-            android:id="@+id/clock_intro_time2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/clock_intro_name2"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/alarm_b"
-            android:text="07:00"
-            android:textColor="#fff"
-            android:textSize="44sp" />
-
-        <TextView
-            android:id="@+id/clock_intro_week2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/clock_intro_time2"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/alarm_b"
-            android:text="未开启"
-            android:textColor="#fff" />
-
-        <com.zcw.togglebutton.ToggleButton
-            android:id="@+id/toggle_button2"
+            android:id="@+id/toggle_button"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
