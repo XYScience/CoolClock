@@ -15,6 +15,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- android:process=":remote": 新开一个进程 -->
+        <receiver
+            android:name="com.science.coolclock.receiver.MyClockReceiver"
+            android:process=":remote" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >

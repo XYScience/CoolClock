@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.science.coolclock.R;
+import com.science.coolclock.utils.ClockUtils;
 import com.science.coolclock.widget.RevealLayout;
 import com.science.coolclock.widget.SwipeDismissTouchListener;
 import com.skyfishjy.library.RippleBackground;
@@ -363,10 +364,15 @@ public class SetClockActivity extends AppCompatActivity {
 					mSetClockTime.setText(new StringBuilder()
 							.append(pad(hourOfDay)).append(":")
 							.append(pad(minute)));
-
 					mSetClockTime.setTextColor(getResources().getColor(
 							android.R.color.holo_blue_light));
+
+					// …Ë÷√ƒ÷÷”
+					ClockUtils clockUtils = new ClockUtils(
+							SetClockActivity.this);
+					clockUtils.setClock(hourOfDay, minute);
 				}
 			}, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar
 					.get(Calendar.MINUTE), true);
+
 }

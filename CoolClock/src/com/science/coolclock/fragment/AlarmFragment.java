@@ -29,6 +29,7 @@ import com.science.coolclock.R;
 import com.science.coolclock.adapter.ScaleInAnimationAdapter;
 import com.science.coolclock.bean.Clock;
 import com.science.coolclock.ui.SetClockActivity;
+import com.science.coolclock.utils.ClockUtils;
 import com.science.coolclock.widget.RevealLayout;
 import com.zcw.togglebutton.ToggleButton;
 import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
@@ -277,8 +278,9 @@ public class AlarmFragment extends Fragment implements
 					Toast.makeText(getActivity(), "闹钟已开启", Toast.LENGTH_SHORT)
 							.show();
 				} else {
-					Toast.makeText(getActivity(), "闹钟已关闭", Toast.LENGTH_SHORT)
-							.show();
+					// 设置闹钟
+					ClockUtils clockUtils = new ClockUtils(getActivity());
+					clockUtils.cancleClock();
 				}
 			}
 		});
