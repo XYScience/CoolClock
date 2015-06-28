@@ -22,7 +22,7 @@
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/alarm"
             android:text="我要早起！！"
-            android:textColor="#000"
+            android:textColor="#3e3e39"
             android:textSize="18sp" />
 
         <ImageView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/alarm_a" />
+            android:src="@drawable/set_clock" />
 
         <TextView
             android:id="@+id/clock_intro_time"
@@ -42,7 +42,7 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/alarm"
             android:text="07:00"
-            android:textColor="#000"
+            android:textColor="#323232"
             android:textSize="44sp" />
 
         <TextView

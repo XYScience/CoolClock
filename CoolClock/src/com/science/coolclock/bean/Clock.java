@@ -18,12 +18,12 @@ public class Clock implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String clockName;
-	private String time;
-	private String week;
-	private String bells;
-	private String bellsSize;
-	private String clearClockVoice;
+	private String clockName; // 闹钟名称
+	private String time; // 时间
+	private String week; // 星期
+	private String bells; // 铃声
+	private String bellsSize; // 铃声大小
+	private String clearClockVoice; // 关闭闹钟声音
 
 	public Clock() {
 		super();

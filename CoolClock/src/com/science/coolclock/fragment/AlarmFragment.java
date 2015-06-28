@@ -130,6 +130,8 @@ public class AlarmFragment extends Fragment implements
 				ViewHolder vh = (ViewHolder) view.getTag();
 				vh.needInflate = true;
 				mClockAdapter.notifyDataSetChanged();
+				Toast.makeText(getActivity(), "É¾³ý³É¹¦!", Toast.LENGTH_SHORT)
+						.show();
 			}
 		};
 		collapse(view, animationListener);

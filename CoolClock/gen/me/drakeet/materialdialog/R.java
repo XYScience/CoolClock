@@ -4,7 +4,7 @@
  * aapt tool from the resource data it found.  It
  * should not be modified by hand.
  */
-package android.support.v7.appcompat;
+package me.drakeet.materialdialog;
 
 public final class R {
 	public static final class anim {
@@ -259,6 +259,8 @@ public final class R {
 		public static final int bright_foreground_material_light = 0x7f070017;
 		public static final int button_material_dark = 0x7f070010;
 		public static final int button_material_light = 0x7f070011;
+		public static final int card_background = 0x7f070033;
+		public static final int card_shadow = 0x7f070034;
 		public static final int dim_foreground_disabled_material_dark = 0x7f07001e;
 		public static final int dim_foreground_disabled_material_light = 0x7f07001f;
 		public static final int dim_foreground_material_dark = 0x7f07001c;
@@ -269,6 +271,7 @@ public final class R {
 		public static final int hint_foreground_material_light = 0x7f070021;
 		public static final int link_text_material_dark = 0x7f070024;
 		public static final int link_text_material_light = 0x7f070025;
+		public static final int lite_blue = 0x7f070035;
 		public static final int material_blue_grey_800 = 0x7f070030;
 		public static final int material_blue_grey_900 = 0x7f070031;
 		public static final int material_blue_grey_950 = 0x7f070032;
@@ -294,6 +297,7 @@ public final class R {
 		public static final int switch_thumb_material_light = 0x7f07005f;
 		public static final int switch_thumb_normal_material_dark = 0x7f070012;
 		public static final int switch_thumb_normal_material_light = 0x7f070013;
+		public static final int window_background = 0x7f070036;
 	}
 	public static final class dimen {
 		public static final int abc_action_bar_content_inset_material = 0x7f080028;
@@ -356,6 +360,8 @@ public final class R {
 		public static final int abc_text_size_subtitle_material_toolbar = 0x7f080025;
 		public static final int abc_text_size_title_material = 0x7f080038;
 		public static final int abc_text_size_title_material_toolbar = 0x7f080024;
+		public static final int activity_horizontal_margin = 0x7f080045;
+		public static final int activity_vertical_margin = 0x7f080046;
 		public static final int dialog_fixed_height_major = 0x7f08000e;
 		public static final int dialog_fixed_height_minor = 0x7f08000f;
 		public static final int dialog_fixed_width_major = 0x7f08000c;
@@ -426,6 +432,11 @@ public final class R {
 		public static final int abc_textfield_search_activated_mtrl_alpha = 0x7f020038;
 		public static final int abc_textfield_search_default_mtrl_alpha = 0x7f020039;
 		public static final int abc_textfield_search_material = 0x7f02003a;
+		public static final int button = 0x7f020041;
+		public static final int material_card = 0x7f02004e;
+		public static final int material_card_nos = 0x7f02004f;
+		public static final int material_card_nos_pressed = 0x7f020050;
+		public static final int material_dialog_window = 0x7f020051;
 		public static final int notification_template_icon_bg = 0x7f020058;
 	}
 	public static final class id {
@@ -448,12 +459,14 @@ public final class R {
 		public static final int alertTitle = 0x7f0a0036;
 		public static final int always = 0x7f0a0019;
 		public static final int beginning = 0x7f0a0020;
+		public static final int buttonLayout = 0x7f0a0083;
 		public static final int buttonPanel = 0x7f0a003c;
 		public static final int cancel_action = 0x7f0a0086;
 		public static final int checkbox = 0x7f0a003e;
 		public static final int chronometer = 0x7f0a008c;
 		public static final int collapseActionView = 0x7f0a001a;
 		public static final int contentPanel = 0x7f0a0037;
+		public static final int contentView = 0x7f0a0080;
 		public static final int custom = 0x7f0a003b;
 		public static final int customPanel = 0x7f0a003a;
 		public static final int decor_content_parent = 0x7f0a0044;
@@ -462,6 +475,7 @@ public final class R {
 		public static final int disableHome = 0x7f0a000d;
 		public static final int dropdown = 0x7f0a001f;
 		public static final int edit_query = 0x7f0a0048;
+		public static final int empty_view = 0x7f0a0084;
 		public static final int end = 0x7f0a0021;
 		public static final int end_padder = 0x7f0a0091;
 		public static final int expand_activities_button = 0x7f0a002d;
@@ -476,7 +490,10 @@ public final class R {
 		public static final int line3 = 0x7f0a008e;
 		public static final int listMode = 0x7f0a000a;
 		public static final int list_item = 0x7f0a0030;
+		public static final int material_background = 0x7f0a007f;
 		public static final int media_actions = 0x7f0a0088;
+		public static final int message = 0x7f0a0082;
+		public static final int message_content_view = 0x7f0a0081;
 		public static final int middle = 0x7f0a0022;
 		public static final int multiply = 0x7f0a0014;
 		public static final int never = 0x7f0a001c;
@@ -555,6 +572,7 @@ public final class R {
 		public static final int abc_search_view = 0x7f040016;
 		public static final int abc_select_dialog_material = 0x7f040017;
 		public static final int abc_simple_dropdown_hint = 0x7f040018;
+		public static final int layout_materialdialog = 0x7f040025;
 		public static final int notification_media_action = 0x7f040026;
 		public static final int notification_media_cancel_action = 0x7f040027;
 		public static final int notification_template_big_media = 0x7f040028;
@@ -586,6 +604,9 @@ public final class R {
 		public static final int abc_shareactionprovider_share_with = 0x7f0b0010;
 		public static final int abc_shareactionprovider_share_with_application = 0x7f0b000f;
 		public static final int abc_toolbar_collapse_description = 0x7f0b0004;
+		public static final int action_settings = 0x7f0b0014;
+		public static final int app_name = 0x7f0b0012;
+		public static final int hello_world = 0x7f0b0013;
 		public static final int status_bar_notification_info_overflow = 0x7f0b0011;
 	}
 	public static final class style {
