@@ -2,7 +2,6 @@ package com.science.coolclock.ui;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -18,8 +17,10 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -28,13 +29,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.science.coolclock.R;
 import com.science.coolclock.utils.ClockUtils;
 import com.science.coolclock.widget.RevealLayout;
-import com.science.coolclock.widget.SwipeDismissTouchListener;
-import com.skyfishjy.library.RippleBackground;
 import com.zcw.togglebutton.ToggleButton;
 import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 
@@ -51,19 +51,17 @@ import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 public class SetClockActivity extends AppCompatActivity {
 
 	private Toolbar mToolbar;
-	private RevealLayout mRevealLayout;
-	private RelativeLayout mSetClockLayout;
+	private RevealLayout mRevealLayout, mRevealTopLayout;
+	private RelativeLayout mSetClockLayout, mVoiceRecordLayout, mTimeLayout;
 	private ImageView mBackImage;
-	private RippleBackground mRippleBackground;
+	// private RippleBackground mRippleBackground;
 	private ImageView mVoiceRecordImg;
 
-	private TextView mSetClockTime;
-	private TextView mSetClockWeek;
+	private TextView mTimeSet;
+	private ImageView mTextSelectMusic, mTextSelectDay, mTextSetVoice;
 	private final Calendar mCalendar = Calendar.getInstance();
 	private int hourOfDay = mCalendar.get(Calendar.HOUR_OF_DAY);
 	private int minute = mCalendar.get(Calendar.MINUTE);
-	private ImageView mBtnChangeTime;
-	private ImageView mBtnChangeWeek;
 
 	private List<String> mWeekList;
 	private String[] week = { "一", "二", "三", "四", "五", "六", "日" };
@@ -74,12 +72,12 @@ public class SetClockActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.fragment_set);
+		setContentView(R.layout.fragment_set_clock);
 		// 沉浸式状态栏设置
 		initSystemBar();
 		initView();
 		resetTime();
-		resetWeek();
+		// resetWeek();
 		initListener();
 
 	}
@@ -105,18 +103,35 @@ public class SetClockActivity extends AppCompatActivity {
 		tintManager.setTintColor(Color.parseColor("#7ecec9"));
 	}
 
-	private void resetTime() {
-		mSetClockTime.setText(new StringBuilder().append(pad(hourOfDay))
-				.append(":").append(pad(minute)));
-		mSetClockTime.setTextColor(getResources().getColor(
-				android.R.color.darker_gray));
+	private void initView() {
+		mToolbar = (Toolbar) findViewById(R.id.toolbar);
+		mSetClockLayout = (RelativeLayout) findViewById(R.id.set_clock_layout);
+		mSetClockLayout.setBackgroundColor(0xffffffff);
+		mVoiceRecordLayout = (RelativeLayout) findViewById(R.id.voice_record_layout);
+		mTimeLayout = (RelativeLayout) findViewById(R.id.time_layout);
+		mRevealLayout = (RevealLayout) findViewById(R.id.reveal_layout);
+		mRevealTopLayout = (RevealLayout) findViewById(R.id.reveal_top_layout);
+		mBackImage = (ImageView) findViewById(R.id.back);
+		// mRippleBackground = (RippleBackground)
+		// findViewById(R.id.voice_record_ripple);
+		mVoiceRecordImg = (ImageView) findViewById(R.id.voice_record);
+		if (mToolbar != null) {
+			setSupportActionBar(mToolbar);
+			getSupportActionBar().setTitle(null);
+		}
 
+		mTimeSet = (TextView) findViewById(R.id.time_set);
+		mTextSelectMusic = (ImageView) findViewById(R.id.select_music);
+		mTextSelectDay = (ImageView) findViewById(R.id.select_day);
+		mTextSetVoice = (ImageView) findViewById(R.id.set_voice);
 	}
 
-	private void resetWeek() {
-		mSetClockWeek.setText("未开启");
-		mSetClockWeek.setTextColor(getResources().getColor(
+	private void resetTime() {
+		mTimeSet.setText(new StringBuilder().append(pad(hourOfDay)).append(":")
+				.append(pad(minute)));
+		mTimeSet.setTextColor(getResources().getColor(
 				android.R.color.darker_gray));
+
 	}
 
 	private static String pad(int c) {
@@ -124,25 +139,6 @@ public class SetClockActivity extends AppCompatActivity {
 			return String.valueOf(c);
 		else
 			return "0" + String.valueOf(c);
-	}
-
-	private void initView() {
-		mToolbar = (Toolbar) findViewById(R.id.toolbar);
-		mSetClockLayout = (RelativeLayout) findViewById(R.id.set_clock_layout);
-		mSetClockLayout.setBackgroundColor(0xffffffff);
-		mRevealLayout = (RevealLayout) findViewById(R.id.reveal_layout);
-		mBackImage = (ImageView) findViewById(R.id.back);
-		mRippleBackground = (RippleBackground) findViewById(R.id.voice_record_ripple);
-		mVoiceRecordImg = (ImageView) findViewById(R.id.voice_record);
-		if (mToolbar != null) {
-			setSupportActionBar(mToolbar);
-			getSupportActionBar().setTitle(null);
-		}
-
-		mSetClockTime = (TextView) findViewById(R.id.tv_time);
-		mSetClockWeek = (TextView) findViewById(R.id.tv_week);
-		mBtnChangeTime = (ImageView) findViewById(R.id.btn_change_time);
-		mBtnChangeWeek = (ImageView) findViewById(R.id.btn_change_week);
 	}
 
 	private void initListener() {
@@ -169,6 +165,22 @@ public class SetClockActivity extends AppCompatActivity {
 			}
 		});
 
+		// 声音和时间选择
+		mRevealTopLayout.setOnClickListener(null);
+		mRevealTopLayout.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+
+					mRevealTopLayout.next((int) event.getX(),
+							(int) event.getY(), 2000);
+
+					return true;
+				}
+				return false;
+			}
+		});
+
 		mBackImage.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -181,35 +193,12 @@ public class SetClockActivity extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-				mRippleBackground.startRippleAnimation();
+				// mRippleBackground.startRippleAnimation();
 			}
 		});
 
-		// 时间滑动删除
-		mSetClockTime.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// nothing to do, just to let onTouchListener work
-
-			}
-		});
-		// 时间滑动删除
-		mSetClockTime.setOnTouchListener(new SwipeDismissTouchListener(
-				mSetClockTime, null,
-				new SwipeDismissTouchListener.DismissCallbacks() {
-					@Override
-					public boolean canDismiss(Object token) {
-						return true;
-					}
-
-					@Override
-					public void onDismiss(View view, Object token) {
-						resetTime();
-					}
-				}));
 		// 选择时间
-		mBtnChangeTime.setOnClickListener(new OnClickListener() {
+		mTimeSet.setOnClickListener(new OnClickListener() {
 			private String tag;
 
 			@Override
@@ -218,35 +207,32 @@ public class SetClockActivity extends AppCompatActivity {
 			}
 		});
 
-		// 周数滑动删除
-		mSetClockWeek.setOnClickListener(new View.OnClickListener() {
+		// 选择音乐
+		mTextSelectMusic.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// nothing to do, just to let onTouchListener work
-
+				Toast.makeText(SetClockActivity.this, "选择音乐", Toast.LENGTH_LONG)
+						.show();
 			}
 		});
-		// 周数滑动删除
-		mSetClockWeek.setOnTouchListener(new SwipeDismissTouchListener(
-				mSetClockWeek, null,
-				new SwipeDismissTouchListener.DismissCallbacks() {
-					@Override
-					public boolean canDismiss(Object token) {
-						return true;
-					}
 
-					@Override
-					public void onDismiss(View view, Object token) {
-						resetWeek();
-					}
-				}));
-		// 选择周数
-		mBtnChangeWeek.setOnClickListener(new OnClickListener() {
+		// 选择周期
+		mTextSelectDay.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				showSelectWeekDialog();
+			}
+		});
+
+		// 调节音量
+		mTextSetVoice.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(SetClockActivity.this, "调节音量", Toast.LENGTH_LONG)
+						.show();
 			}
 		});
 	}
@@ -272,7 +258,7 @@ public class SetClockActivity extends AppCompatActivity {
 			public void onClick(View v) {
 				mMaterialDialog.dismiss();
 
-				setWeek();
+				// setWeek();
 			}
 
 		});
@@ -313,7 +299,7 @@ public class SetClockActivity extends AppCompatActivity {
 					if (on) {
 						weekList.add(position);
 					} else {
-						setUnSelectWeek(position);
+						// setUnSelectWeek(position);
 					}
 				}
 			});
@@ -321,29 +307,29 @@ public class SetClockActivity extends AppCompatActivity {
 		}
 	}
 
-	// 显示选择的星期
-	private void setWeek() {
-		mSetClockWeek.setText("");
-		if (weekList.size() < 7) {
-			Iterator it = weekList.iterator();
-			while (it.hasNext()) {
-				mSetClockWeek.setText(mSetClockWeek.getText() + "周"
-						+ week[(int) it.next()]);
-			}
-		} else {
-			mSetClockWeek.setText("每天");
-		}
-		mSetClockWeek.setTextColor(getResources().getColor(
-				android.R.color.holo_blue_light));
-		weekList.clear();
-	}
-
-	// 不选择时
-	private void setUnSelectWeek(int position) {
-		mSetClockWeek.setText("未开启");
-		mSetClockWeek.setTextColor(getResources().getColor(
-				android.R.color.darker_gray));
-	}
+	// // 显示选择的星期
+	// private void setWeek() {
+	// mTextSlectWeek.setText("");
+	// if (weekList.size() < 7) {
+	// Iterator it = weekList.iterator();
+	// while (it.hasNext()) {
+	// mTextSlectWeek.setText(mTextSlectWeek.getText() + "周"
+	// + week[(int) it.next()]);
+	// }
+	// } else {
+	// mTextSlectWeek.setText("每天");
+	// }
+	// mTextSlectWeek.setTextColor(getResources().getColor(
+	// android.R.color.holo_blue_light));
+	// weekList.clear();
+	// }
+	//
+	// // 不选择时
+	// private void setUnSelectWeek(int position) {
+	// mTextSlectWeek.setText("未开启");
+	// mTextSlectWeek.setTextColor(getResources().getColor(
+	// android.R.color.darker_gray));
+	// }
 
 	/** 添加一个得到数据的方法，方便使用 */
 	private void getWeek() {
@@ -361,10 +347,9 @@ public class SetClockActivity extends AppCompatActivity {
 				public void onTimeSet(RadialPickerLayout view, int hourOfDay,
 						int minute) {
 
-					mSetClockTime.setText(new StringBuilder()
-							.append(pad(hourOfDay)).append(":")
-							.append(pad(minute)));
-					mSetClockTime.setTextColor(getResources().getColor(
+					mTimeSet.setText(new StringBuilder().append(pad(hourOfDay))
+							.append(":").append(pad(minute)));
+					mTimeSet.setTextColor(getResources().getColor(
 							android.R.color.holo_blue_light));
 
 					// 设置闹钟
