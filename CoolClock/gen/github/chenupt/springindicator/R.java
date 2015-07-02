@@ -4,7 +4,7 @@
  * aapt tool from the resource data it found.  It
  * should not be modified by hand.
  */
-package android.support.v7.appcompat;
+package github.chenupt.springindicator;
 
 public final class R {
 	public static final class anim {
@@ -170,6 +170,14 @@ public final class R {
 		public static final int showAsAction = 0x7f01008b;
 		public static final int showDividers = 0x7f0100a4;
 		public static final int showText = 0x7f0100c3;
+		public static final int siIndicatorColor = 0x7f0100db;
+		public static final int siIndicatorColors = 0x7f0100dc;
+		public static final int siRadiusMax = 0x7f0100dd;
+		public static final int siRadiusMin = 0x7f0100de;
+		public static final int siSelectedTextColor = 0x7f0100d8;
+		public static final int siTextBg = 0x7f0100d9;
+		public static final int siTextColor = 0x7f0100d7;
+		public static final int siTextSize = 0x7f0100da;
 		public static final int singleChoiceItemLayout = 0x7f0100c7;
 		public static final int spinBars = 0x7f0100b5;
 		public static final int spinnerDropDownItemStyle = 0x7f010030;
@@ -288,6 +296,9 @@ public final class R {
 		public static final int secondary_text_default_material_light = 0x7f070027;
 		public static final int secondary_text_disabled_material_dark = 0x7f07002d;
 		public static final int secondary_text_disabled_material_light = 0x7f07002b;
+		public static final int si_default_indicator_bg = 0x7f07003a;
+		public static final int si_default_text_color = 0x7f070038;
+		public static final int si_default_text_color_selected = 0x7f070039;
 		public static final int switch_thumb_disabled_material_dark = 0x7f070014;
 		public static final int switch_thumb_disabled_material_light = 0x7f070015;
 		public static final int switch_thumb_material_dark = 0x7f070077;
@@ -365,6 +376,9 @@ public final class R {
 		public static final int notification_large_icon_height = 0x7f080022;
 		public static final int notification_large_icon_width = 0x7f080021;
 		public static final int notification_subtext_size = 0x7f080023;
+		public static final int si_default_radius_max = 0x7f080046;
+		public static final int si_default_radius_min = 0x7f080047;
+		public static final int si_default_text_size = 0x7f080045;
 	}
 	public static final class drawable {
 		public static final int abc_ab_share_pack_mtrl_alpha = 0x7f020000;
@@ -1032,6 +1046,15 @@ public final class R {
 		public static final int Spinner_popupPromptView = 9;
 		public static final int Spinner_prompt = 7;
 		public static final int Spinner_spinnerMode = 8;
+		public static final int[] SpringIndicator = { 0x7f0100d7, 0x7f0100d8, 0x7f0100d9, 0x7f0100da, 0x7f0100db, 0x7f0100dc, 0x7f0100dd, 0x7f0100de };
+		public static final int SpringIndicator_siIndicatorColor = 4;
+		public static final int SpringIndicator_siIndicatorColors = 5;
+		public static final int SpringIndicator_siRadiusMax = 6;
+		public static final int SpringIndicator_siRadiusMin = 7;
+		public static final int SpringIndicator_siSelectedTextColor = 1;
+		public static final int SpringIndicator_siTextBg = 2;
+		public static final int SpringIndicator_siTextColor = 0;
+		public static final int SpringIndicator_siTextSize = 3;
 		public static final int[] SwitchCompat = { 0x01010124, 0x01010125, 0x01010142, 0x7f0100bd, 0x7f0100be, 0x7f0100bf, 0x7f0100c0, 0x7f0100c1, 0x7f0100c2, 0x7f0100c3 };
 		public static final int SwitchCompat_android_textOff = 1;
 		public static final int SwitchCompat_android_textOn = 0;

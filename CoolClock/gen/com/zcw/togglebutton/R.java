@@ -8,15 +8,15 @@ package com.zcw.togglebutton;
 
 public final class R {
 	public static final class attr {
-		public static final int animate = 0x7f0100ce;
-		public static final int borderWidth = 0x7f0100c9;
-		public static final int offBorderColor = 0x7f0100ca;
-		public static final int offColor = 0x7f0100cb;
-		public static final int onColor = 0x7f0100cc;
-		public static final int spotColor = 0x7f0100cd;
+		public static final int animate = 0x7f0100e4;
+		public static final int borderWidth = 0x7f0100df;
+		public static final int offBorderColor = 0x7f0100e0;
+		public static final int offColor = 0x7f0100e1;
+		public static final int onColor = 0x7f0100e2;
+		public static final int spotColor = 0x7f0100e3;
 	}
 	public static final class styleable {
-		public static final int[] ToggleButton = { 0x7f0100c9, 0x7f0100ca, 0x7f0100cb, 0x7f0100cc, 0x7f0100cd, 0x7f0100ce };
+		public static final int[] ToggleButton = { 0x7f0100df, 0x7f0100e0, 0x7f0100e1, 0x7f0100e2, 0x7f0100e3, 0x7f0100e4 };
 		public static final int ToggleButton_animate = 5;
 		public static final int ToggleButton_borderWidth = 0;
 		public static final int ToggleButton_offBorderColor = 1;

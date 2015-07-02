@@ -18,6 +18,7 @@ import android.view.animation.Transformation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -48,6 +49,8 @@ public class AlarmFragment extends Fragment implements
 		FlyRefreshLayout.OnPullRefreshListener {
 
 	private View mRootView;
+	private FrameLayout mFrameLayout;
+	private RevealLayout mRevealLayout;
 	private ListView mListView;
 	private FlyRefreshLayout mFlyRefreshLayout;
 	private Handler mHandler = new Handler();
@@ -80,6 +83,26 @@ public class AlarmFragment extends Fragment implements
 	}
 
 	private void initView() {
+
+		mFrameLayout = (FrameLayout) mRootView.findViewById(R.id.frame_layout);
+		mFrameLayout.setBackgroundColor(0xffe8e8e8);
+		mRevealLayout = (RevealLayout) mRootView.findViewById(R.id.container);
+		mRevealLayout.setContentShown(false);
+		mRevealLayout.getViewTreeObserver().addOnGlobalLayoutListener(
+				new ViewTreeObserver.OnGlobalLayoutListener() {
+					@SuppressWarnings("deprecation")
+					@Override
+					public void onGlobalLayout() {
+						mRevealLayout.getViewTreeObserver()
+								.removeGlobalOnLayoutListener(this);
+						mRevealLayout.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								mRevealLayout.show();
+							}
+						}, 50);
+					}
+				});
 
 		mListView = (ListView) mRootView.findViewById(R.id.list);
 		mListClock = new ArrayList<Clock>();

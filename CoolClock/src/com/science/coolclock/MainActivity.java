@@ -1,18 +1,23 @@
 package com.science.coolclock;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.science.coolclock.fragment.GuillotineMenu;
@@ -27,11 +32,16 @@ public class MainActivity extends AppCompatActivity {
 	/** 菜单界面 */
 	private GuillotineMenu mGuillotineMenu;
 	private TextView mTextTitle;
+	// 定义一个变量，来标识是否退出
+	private static boolean isExit = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// 将activity加入到AppManager堆栈中
+		AppManager.getAppManager().addActivity(this);
 
 		// 沉浸式状态栏设置
 		initSystemBar();
@@ -82,4 +92,35 @@ public class MainActivity extends AppCompatActivity {
 
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 按下的如果是BACK，同时没有重复
+			exit();
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	private void exit() {
+		if (!isExit) {
+			isExit = true;
+			Toast.makeText(getApplicationContext(), "再按一次退出程序",
+					Toast.LENGTH_SHORT).show();
+			// 利用handler延迟发送更改状态信息
+			mHandler.sendEmptyMessageDelayed(0, 2000);
+		} else {
+			AppManager.getAppManager().AppExit(MainActivity.this);
+			MainActivity.this.finish();
+		}
+	}
+
+	@SuppressLint("HandlerLeak")
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			isExit = false;
+		}
+	};
 }

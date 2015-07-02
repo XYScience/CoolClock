@@ -9,6 +9,10 @@ import me.drakeet.materialdialog.MaterialDialog;
 import mirko.android.datetimepicker.time.RadialPickerLayout;
 import mirko.android.datetimepicker.time.TimePickerDialog;
 import mirko.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar.OnProgressChangeListener;
+
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
@@ -17,6 +21,8 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.science.coolclock.AppManager;
 import com.science.coolclock.R;
 import com.science.coolclock.utils.ClockUtils;
 import com.science.coolclock.widget.RevealLayout;
@@ -73,6 +80,10 @@ public class SetClockActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.fragment_set_clock);
+
+		// 将activity加入到AppManager堆栈中
+		AppManager.getAppManager().addActivity(this);
+
 		// 沉浸式状态栏设置
 		initSystemBar();
 		initView();
@@ -231,8 +242,7 @@ public class SetClockActivity extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(SetClockActivity.this, "调节音量", Toast.LENGTH_LONG)
-						.show();
+				showSetVoiceDialog();
 			}
 		});
 	}
@@ -257,7 +267,6 @@ public class SetClockActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				mMaterialDialog.dismiss();
-
 				// setWeek();
 			}
 
@@ -285,13 +294,13 @@ public class SetClockActivity extends AppCompatActivity {
 		@Override
 		public View getView(final int position, View convertView,
 				ViewGroup parent) {
-			View view = View.inflate(SetClockActivity.this,
-					R.layout.set_clock_week, null);
+			View view = View.inflate(SetClockActivity.this, R.layout.set_week,
+					null);
 			// 使用每一次都findviewById的方法来获得listview_item内部的组件
-			TextView item = (TextView) view.findViewById(R.id.week);
+			TextView item = (TextView) view.findViewById(R.id.monday);
 			item.setText(mWeekList.get(position));
 			ToggleButton weekBtn = (ToggleButton) view
-					.findViewById(R.id.week_button);
+					.findViewById(R.id.monday_button);
 			weekBtn.setOnToggleChanged(new OnToggleChanged() {
 
 				@Override
@@ -307,7 +316,47 @@ public class SetClockActivity extends AppCompatActivity {
 		}
 	}
 
-	// // 显示选择的星期
+	// 设置音量
+	private void showSetVoiceDialog() {
+		View view = LayoutInflater.from(this).inflate(R.layout.set_voice, null);
+		final MaterialDialog alert = new MaterialDialog(this).setTitle("闹铃音量")
+				.setContentView(view);
+
+		DiscreteSeekBar setVoiceSeekBar = (DiscreteSeekBar) view
+				.findViewById(R.id.set_voice_seekbar);
+		final TextView currentValues = (TextView) view
+				.findViewById(R.id.current_values);
+		setVoiceSeekBar
+				.setOnProgressChangeListener(new OnProgressChangeListener() {
+
+					@Override
+					public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+
+					}
+
+					@Override
+					public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+
+					}
+
+					@Override
+					public void onProgressChanged(DiscreteSeekBar seekBar,
+							int value, boolean fromUser) {
+						currentValues.setText(value + "");
+					}
+				});
+
+		alert.setPositiveButton("确定", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				alert.dismiss();
+			}
+		});
+
+		alert.show();
+	}
+
+	// 显示选择的星期
 	// private void setWeek() {
 	// mTextSlectWeek.setText("");
 	// if (weekList.size() < 7) {
@@ -359,5 +408,14 @@ public class SetClockActivity extends AppCompatActivity {
 				}
 			}, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar
 					.get(Calendar.MINUTE), true);
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 按下的如果是BACK，同时没有重复
+			AppManager.getAppManager().finishActivity(SetClockActivity.this);
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 }

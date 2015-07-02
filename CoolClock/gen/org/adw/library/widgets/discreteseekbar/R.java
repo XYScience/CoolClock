@@ -4,7 +4,7 @@
  * aapt tool from the resource data it found.  It
  * should not be modified by hand.
  */
-package android.support.v7.appcompat;
+package org.adw.library.widgets.discreteseekbar;
 
 public final class R {
 	public static final class anim {
@@ -99,6 +99,7 @@ public final class R {
 		public static final int dialogPreferredPadding = 0x7f01002c;
 		public static final int dialogTheme = 0x7f01002b;
 		public static final int disableChildrenWhenDisabled = 0x7f010092;
+		public static final int discreteSeekBarStyle = 0x7f0100c9;
 		public static final int displayOptions = 0x7f01006d;
 		public static final int divider = 0x7f010073;
 		public static final int dividerHorizontal = 0x7f010039;
@@ -108,6 +109,19 @@ public final class R {
 		public static final int drawerArrowStyle = 0x7f0100bc;
 		public static final int dropDownListViewStyle = 0x7f01004a;
 		public static final int dropdownListPreferredItemHeight = 0x7f01002f;
+		public static final int dsb_allowTrackClickToDrag = 0x7f0100ce;
+		public static final int dsb_indicatorColor = 0x7f0100d2;
+		public static final int dsb_indicatorElevation = 0x7f0100d3;
+		public static final int dsb_indicatorFormatter = 0x7f0100d4;
+		public static final int dsb_indicatorPopupEnabled = 0x7f0100d6;
+		public static final int dsb_indicatorTextAppearance = 0x7f0100d1;
+		public static final int dsb_max = 0x7f0100cb;
+		public static final int dsb_min = 0x7f0100ca;
+		public static final int dsb_mirrorForRtl = 0x7f0100cd;
+		public static final int dsb_progressColor = 0x7f0100cf;
+		public static final int dsb_rippleColor = 0x7f0100d5;
+		public static final int dsb_trackColor = 0x7f0100d0;
+		public static final int dsb_value = 0x7f0100cc;
 		public static final int editTextBackground = 0x7f010040;
 		public static final int editTextColor = 0x7f01003f;
 		public static final int editTextStyle = 0x7f010067;
@@ -263,6 +277,14 @@ public final class R {
 		public static final int dim_foreground_disabled_material_light = 0x7f07001f;
 		public static final int dim_foreground_material_dark = 0x7f07001c;
 		public static final int dim_foreground_material_light = 0x7f07001d;
+		public static final int dsb_disabled_color = 0x7f070035;
+		public static final int dsb_progress_color = 0x7f070033;
+		public static final int dsb_progress_color_list = 0x7f070074;
+		public static final int dsb_ripple_color_focused = 0x7f070037;
+		public static final int dsb_ripple_color_list = 0x7f070075;
+		public static final int dsb_ripple_color_pressed = 0x7f070036;
+		public static final int dsb_track_color = 0x7f070034;
+		public static final int dsb_track_color_list = 0x7f070076;
 		public static final int highlighted_text_material_dark = 0x7f070022;
 		public static final int highlighted_text_material_light = 0x7f070023;
 		public static final int hint_foreground_material_dark = 0x7f070020;
@@ -881,6 +903,8 @@ public final class R {
 		public static final int Widget_AppCompat_TextView_SpinnerItem = 0x7f0c003f;
 		public static final int Widget_AppCompat_Toolbar = 0x7f0c0042;
 		public static final int Widget_AppCompat_Toolbar_Button_Navigation = 0x7f0c0043;
+		public static final int Widget_DiscreteIndicatorTextAppearance = 0x7f0c0125;
+		public static final int Widget_DiscreteSeekBar = 0x7f0c0124;
 	}
 	public static final class styleable {
 		public static final int[] ActionBar = { 0x7f010000, 0x7f010001, 0x7f010031, 0x7f01006c, 0x7f01006d, 0x7f01006e, 0x7f01006f, 0x7f010070, 0x7f010071, 0x7f010072, 0x7f010073, 0x7f010074, 0x7f010075, 0x7f010076, 0x7f010077, 0x7f010078, 0x7f010079, 0x7f01007a, 0x7f01007b, 0x7f01007c, 0x7f01007d, 0x7f01007e, 0x7f01007f, 0x7f010080, 0x7f010081, 0x7f010082, 0x7f010083 };
@@ -936,6 +960,20 @@ public final class R {
 		public static final int[] AppCompatTextView = { 0x01010034, 0x7f0100a2 };
 		public static final int AppCompatTextView_android_textAppearance = 0;
 		public static final int AppCompatTextView_textAllCaps = 1;
+		public static final int[] DiscreteSeekBar = { 0x7f0100ca, 0x7f0100cb, 0x7f0100cc, 0x7f0100cd, 0x7f0100ce, 0x7f0100cf, 0x7f0100d0, 0x7f0100d1, 0x7f0100d2, 0x7f0100d3, 0x7f0100d4, 0x7f0100d5, 0x7f0100d6 };
+		public static final int DiscreteSeekBar_dsb_allowTrackClickToDrag = 4;
+		public static final int DiscreteSeekBar_dsb_indicatorColor = 8;
+		public static final int DiscreteSeekBar_dsb_indicatorElevation = 9;
+		public static final int DiscreteSeekBar_dsb_indicatorFormatter = 10;
+		public static final int DiscreteSeekBar_dsb_indicatorPopupEnabled = 12;
+		public static final int DiscreteSeekBar_dsb_indicatorTextAppearance = 7;
+		public static final int DiscreteSeekBar_dsb_max = 1;
+		public static final int DiscreteSeekBar_dsb_min = 0;
+		public static final int DiscreteSeekBar_dsb_mirrorForRtl = 3;
+		public static final int DiscreteSeekBar_dsb_progressColor = 5;
+		public static final int DiscreteSeekBar_dsb_rippleColor = 11;
+		public static final int DiscreteSeekBar_dsb_trackColor = 6;
+		public static final int DiscreteSeekBar_dsb_value = 2;
 		public static final int[] DrawerArrowToggle = { 0x7f0100b4, 0x7f0100b5, 0x7f0100b6, 0x7f0100b7, 0x7f0100b8, 0x7f0100b9, 0x7f0100ba, 0x7f0100bb };
 		public static final int DrawerArrowToggle_barSize = 6;
 		public static final int DrawerArrowToggle_color = 0;
@@ -1108,6 +1146,7 @@ public final class R {
 		public static final int Theme_colorSwitchThumbNormal = 88;
 		public static final int Theme_dialogPreferredPadding = 43;
 		public static final int Theme_dialogTheme = 42;
+		public static final int Theme_discreteSeekBarStyle = 107;
 		public static final int Theme_dividerHorizontal = 56;
 		public static final int Theme_dividerVertical = 55;
 		public static final int Theme_dropDownListViewStyle = 73;
