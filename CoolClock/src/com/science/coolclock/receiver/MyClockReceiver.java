@@ -3,7 +3,9 @@ package com.science.coolclock.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+
+import com.science.coolclock.ui.ClockStartActivity;
+import com.science.coolclock.utils.ClockUtils;
 
 /**
  * @description 闹钟广播接收
@@ -19,7 +21,12 @@ public class MyClockReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Toast.makeText(context, "闹钟时间到了！", Toast.LENGTH_SHORT).show();
+		ClockUtils clockUtils = new ClockUtils(context);
+		clockUtils.cancleClock();
+
+		Intent i = new Intent(context, ClockStartActivity.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(i);
 	}
 
 }

@@ -54,13 +54,11 @@
                     android:layout_height="wrap_content"
                     android:background="#7ecec9" >
 
-                    <ImageView
+                    <com.science.coolclock.widget.VoiceView
                         android:id="@+id/voice_record"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:contentDescription="@null"
-                        android:src="@drawable/voice_record" />
+                        android:layout_width="190dp"
+                        android:layout_height="190dp"
+                        android:layout_centerHorizontal="true" />
 
                     <TextView
                         android:id="@+id/clear_clock_voice"

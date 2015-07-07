@@ -1,5 +1,7 @@
 package com.science.coolclock.ui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -15,10 +17,14 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar.OnProgressChangeL
 
 import android.annotation.TargetApi;
 import android.graphics.Color;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -41,7 +47,10 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.science.coolclock.AppManager;
 import com.science.coolclock.R;
 import com.science.coolclock.utils.ClockUtils;
+import com.science.coolclock.utils.Util;
 import com.science.coolclock.widget.RevealLayout;
+import com.science.coolclock.widget.VoiceView;
+import com.science.coolclock.widget.VoiceView.OnRecordListener;
 import com.zcw.togglebutton.ToggleButton;
 import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 
@@ -61,8 +70,11 @@ public class SetClockActivity extends AppCompatActivity {
 	private RevealLayout mRevealLayout, mRevealTopLayout;
 	private RelativeLayout mSetClockLayout, mVoiceRecordLayout, mTimeLayout;
 	private ImageView mBackImage;
-	// private RippleBackground mRippleBackground;
-	private ImageView mVoiceRecordImg;
+	private VoiceView mVoiceRecord;
+	private MediaRecorder mMediaRecorder;
+	private Handler mHandler;
+	private boolean mIsRecording = false;
+	private boolean mIsSetTime = true;
 
 	private TextView mTimeSet;
 	private ImageView mTextSelectMusic, mTextSelectDay, mTextSetVoice;
@@ -123,9 +135,16 @@ public class SetClockActivity extends AppCompatActivity {
 		mRevealLayout = (RevealLayout) findViewById(R.id.reveal_layout);
 		mRevealTopLayout = (RevealLayout) findViewById(R.id.reveal_top_layout);
 		mBackImage = (ImageView) findViewById(R.id.back);
-		// mRippleBackground = (RippleBackground)
-		// findViewById(R.id.voice_record_ripple);
-		mVoiceRecordImg = (ImageView) findViewById(R.id.voice_record);
+		// Â¼Òô³õÊ¼»¯
+		mVoiceRecord = (VoiceView) findViewById(R.id.voice_record);
+		mHandler = new Handler(Looper.getMainLooper());
+		mMediaRecorder = new MediaRecorder();
+		mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+		mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+		mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+		mMediaRecorder.setOutputFile(new File(Environment
+				.getExternalStorageDirectory(), "audio.amr").getAbsolutePath());
+
 		if (mToolbar != null) {
 			setSupportActionBar(mToolbar);
 			getSupportActionBar().setTitle(null);
@@ -186,6 +205,14 @@ public class SetClockActivity extends AppCompatActivity {
 					mRevealTopLayout.next((int) event.getX(),
 							(int) event.getY(), 2000);
 
+					if (mIsSetTime) {
+						mTimeSet.setClickable(false);
+						mIsSetTime = false;
+					} else {
+						mTimeSet.setClickable(true);
+						mIsSetTime = true;
+					}
+
 					return true;
 				}
 				return false;
@@ -200,11 +227,37 @@ public class SetClockActivity extends AppCompatActivity {
 			}
 		});
 
-		mVoiceRecordImg.setOnClickListener(new OnClickListener() {
+		mVoiceRecord.setOnRecordListener(new OnRecordListener() {
 
 			@Override
-			public void onClick(View v) {
-				// mRippleBackground.startRippleAnimation();
+			public void onRecordStart() {
+				try {
+					mMediaRecorder.prepare();
+					mMediaRecorder.start();
+					mIsRecording = true;
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							float radius = (float) Math.log10(Math.max(1,
+									mMediaRecorder.getMaxAmplitude() - 500))
+									* Util.dpToPx(getResources(), 20);
+							mVoiceRecord.animateRadius(radius);
+							if (mIsRecording) {
+								mHandler.postDelayed(this, 50);
+							}
+						}
+					});
+				} catch (IOException e) {
+					Toast.makeText(SetClockActivity.this, "Â¼ÒôÆô¶¯Ê§°Ü£¡",
+							Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onRecordFinish() {
+				mIsRecording = false;
+				mMediaRecorder.stop();
 			}
 		});
 
@@ -408,6 +461,16 @@ public class SetClockActivity extends AppCompatActivity {
 				}
 			}, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar
 					.get(Calendar.MINUTE), true);
+
+	@Override
+	protected void onDestroy() {
+		if (mIsRecording) {
+			mMediaRecorder.stop();
+			mIsRecording = false;
+		}
+		mMediaRecorder.release();
+		super.onDestroy();
+	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

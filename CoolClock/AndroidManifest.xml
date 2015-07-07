@@ -9,6 +9,8 @@
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +35,8 @@
         <activity android:name="com.science.coolclock.ui.SetClockActivity" >
         </activity> 
         <activity android:name="com.science.coolclock.MainActivity" >
-        </activity> 
+        </activity>
+        <activity android:name="com.science.coolclock.ui.ClockStartActivity"></activity> 
     </application>
 
 </manifest>

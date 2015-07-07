@@ -49,8 +49,6 @@ public class ClockUtils {
 	 */
 	public void setClock(int hourOfDay, int minute) {
 
-		// 设置日历的时间，主要是让日历的年月日和当前同步
-		mCalendar.setTimeInMillis(System.currentTimeMillis());
 		/**
 		 * 将时间设置为定时的时间 设置日历的小时和分钟
 		 */
@@ -59,6 +57,12 @@ public class ClockUtils {
 		// 将秒和毫秒设置为0
 		mCalendar.set(Calendar.SECOND, 0);
 		mCalendar.set(Calendar.MILLISECOND, 0);
+
+		Calendar currentTime = Calendar.getInstance();
+		if (mCalendar.getTimeInMillis() <= currentTime.getTimeInMillis()) {
+			mCalendar.setTimeInMillis(mCalendar.getTimeInMillis() + 24 * 60
+					* 60 * 1000);
+		}
 
 		// 设置闹钟
 		mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(),
